@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ForeverYoung@Home</title>
+  <meta name="description" content="An open distributed computing initiative for research that helps reverse biological aging, restore health, and build a public knowledge base for rejuvenation science." />
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-2: #0c1830;
+      --card: rgba(255,255,255,0.06);
+      --card-strong: rgba(255,255,255,0.10);
+      --text: #e7eefc;
+      --muted: #a9b7d0;
+      --accent: #63d2ff;
+      --accent-2: #9effa6;
+      --line: rgba(255,255,255,0.10);
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 500px at 10% 0%, rgba(99,210,255,0.18), transparent 50%),
+        radial-gradient(900px 480px at 90% 10%, rgba(158,255,166,0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg), #04101b 100%);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: rgba(7,17,31,0.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 76px;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand strong {
+      letter-spacing: 0.2px;
+      font-size: 1.05rem;
+    }
+    .brand span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: flex-end;
+      font-size: 0.95rem;
+    }
+    nav a {
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 999px;
+      transition: 0.2s ease;
+      border: 1px solid transparent;
+    }
+    nav a:hover {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero {
+      padding: 72px 0 32px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .hero-main, .hero-side, .card, .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-main {
+      padding: 34px;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -30% auto;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(99,210,255,0.18), transparent 68%);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(99,210,255,0.28);
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(99,210,255,0.08);
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(2.3rem, 4.8vw, 4.7rem);
+      line-height: 1.02;
+      margin: 0 0 18px;
+      letter-spacing: -0.03em;
+    }
+    .hero p.lead {
+      max-width: 760px;
+      font-size: clamp(1.04rem, 1.7vw, 1.25rem);
+      color: #d6e4ff;
+      margin: 0 0 24px;
+    }
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      transition: 0.2s ease;
+      font-weight: 600;
+    }
+    .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.08); }
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(99,210,255,0.95), rgba(158,255,166,0.88));
+      color: #03121f;
+      border-color: transparent;
+    }
+
+    .hero-side {
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+    }
+    .stat strong {
+      display: block;
+      font-size: 1.24rem;
+      margin-bottom: 4px;
+    }
+    .stat span { color: var(--muted); font-size: 0.95rem; }
+
+    main { padding: 14px 0 84px; }
+    section { margin-top: 24px; }
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+    .card {
+      padding: 24px;
+      grid-column: span 6;
+    }
+    .card.full { grid-column: 1 / -1; }
+    .card.third { grid-column: span 4; }
+    .card h2, .card h3, .panel h2 {
+      margin: 0 0 12px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+    .card h2 { font-size: 1.55rem; }
+    .card h3 { font-size: 1.2rem; }
+    .muted { color: var(--muted); }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: #d9e6ff;
+      font-size: 0.92rem;
+    }
+    ul.clean {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    ul.clean li {
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+    }
+    ul.clean li:first-child { border-top: 0; padding-top: 0; }
+    .timeline {
+      display: grid;
+      gap: 12px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 16px;
+      align-items: start;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+    .step:first-child { border-top: 0; padding-top: 0; }
+    .step .num {
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      padding-top: 2px;
+    }
+    .quote {
+      padding: 18px 20px;
+      border-left: 3px solid var(--accent-2);
+      background: rgba(158,255,166,0.06);
+      border-radius: 0 16px 16px 0;
+      color: #eef9ef;
+    }
+    .table-wrap { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+    th, td {
+      text-align: left;
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    th {
+      color: #cfe5ff;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    td { color: #edf3ff; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(99,210,255,0.24);
+      background: rgba(99,210,255,0.08);
+      color: #d6f3ff;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+    .footer {
+      margin-top: 26px;
+      padding: 22px 0 36px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+    .small { font-size: 0.92rem; color: var(--muted); }
+
+    @media (max-width: 940px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .card, .card.third { grid-column: 1 / -1; }
+      .topbar { flex-direction: column; align-items: flex-start; padding: 14px 0; }
+      nav { justify-content: flex-start; }
+      .hero { padding-top: 28px; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-main, .hero-side, .card { padding: 20px; }
+      h1 { font-size: 2.2rem; }
+      .step { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div class="brand">
+        <strong>ForeverYoung@Home</strong>
+        <span>Open computing for rejuvenation, healthspan, and the road back to youthful function.</span>
+      </div>
+      <nav aria-label="Main navigation">
+        <a href="#mission">Mission</a>
+        <a href="#why">Why this exists</a>
+        <a href="#approach">Approach</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#accelerator">Acceleration Log</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <section class="hero-main">
+        <div class="eyebrow">Distributed computing • Biology • Open infrastructure</div>
+        <h1>Compute the path back to youth.</h1>
+        <p class="lead">
+          ForeverYoung@Home is an open, distributed computing initiative built around one serious idea:
+          use shared compute to accelerate the science that can restore youthful biology, improve health,
+          and push the boundary between decline and renewal.
+        </p>
+        <p class="lead">
+          Not a slogan project. Not a wellness brand. A practical platform for exact work units, reproducible results,
+          and an expanding public knowledge base that can support real research instead of vanishing into a folder called "drafts".
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#mission">Read the mission</a>
+          <a class="btn" href="#roadmap">See the roadmap</a>
+          <a class="btn" href="#accelerator">View the outreach log</a>
+        </div>
+      </section>
+
+      <aside class="hero-side">
+        <div class="stat">
+          <strong>Goal</strong>
+          <span>Restore biological function, not merely slow decline.</span>
+        </div>
+        <div class="stat">
+          <strong>Method</strong>
+          <span>BOINC-ready workloads, public documentation, open progress tracking.</span>
+        </div>
+        <div class="stat">
+          <strong>Principle</strong>
+          <span>Every result should be stored, searchable, and useful for the next step.</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section id="mission" class="section-grid">
+      <article class="card full">
+        <h2>Mission</h2>
+        <p class="muted">
+          The mission is direct: build a platform that supports research aimed at reversing biological aging,
+          restoring youthful function, and mapping the scientific path toward durable health and, ultimately,
+          profound rejuvenation.
+        </p>
+        <div class="quote">
+          The point is not to hide behind soft language. The point is to define the target clearly enough that compute,
+          experiments, and collaboration can all move toward the same horizon.
+        </div>
+        <div class="pill-row">
+          <span class="pill">Rejuvenation research</span>
+          <span class="pill">Biological age reduction</span>
+          <span class="pill">Open compute</span>
+          <span class="pill">Public knowledge base</span>
+          <span class="pill">Reproducible work units</span>
+        </div>
+      </article>
+    </section>
+
+    <section id="why" class="section-grid">
+      <article class="card">
+        <h2>Why this exists</h2>
+        <p>
+          Because the world has spent a lot of time naming the problem very politely while the problem continued to get worse.
+          The language around aging is often cautious, marketable, and neat. That is useful for brochures, but less useful for breakthroughs.
+        </p>
+        <p>
+          A project like this exists to make the target explicit: less damage, more repair, more youthful function, and a growing library of things that were actually tested.
+        </p>
+      </article>
+      <article class="card">
+        <h2>What makes it different</h2>
+        <ul class="clean">
+          <li><strong>Open by design:</strong> results, benchmarks, and model assumptions are documented, not hidden behind vague promises.</li>
+          <li><strong>Specific work:</strong> each computation should answer a concrete biological question.</li>
+          <li><strong>Public memory:</strong> even negative results matter because they stop people from rebuilding the same dead-end twice.</li>
+          <li><strong>Expandable:</strong> the platform can grow from a small pilot to a larger ecosystem without changing the core idea.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="partners" class="section-grid">
+      <article class="card full">
+        <h2>Partners</h2>
+        <p>
+          Scientific content for this project will not come from a generic web agency that usually builds e‑commerce sites and landing pages. This is not criticism, just reality. We need partners from HPC, bioinformatics, and molecular modeling. Otherwise, an ambitious idea turns into a beautiful website without computations, which is exactly the category of projects the world does not need more of.
+        </p>
+        <p>
+          The reasonable strategy is not to search for a single miracle vendor, but to build a network of technical partners. One contributes infrastructure, another algorithms, another validation, another integration into existing scientific tools. That is how infrastructure emerges.
+        </p>
+        <p class="muted">
+          Relevant partners include HPC research centers, computational biology groups, and scientific computing companies. Organizations similar to CERIT‑SC, BIO‑HPC, or Kitware Europe illustrate the competence profile that makes collaboration meaningful.
+        </p>
+        <div class="quote">
+          The goal is not to outsource the idea. The goal is to build an ecosystem where each partner adds a concrete capability and the project gains real technical weight.
+        </div>
+      </article>
+    </section>
+
+    <section id="accelerator" class="section-grid">
+      <article class="card full">
+        <h2>Acceleration log</h2>
+        <p>
+          The Acceleration Log is not a list of contacts created for the illusion of progress. It is a deliberate strategy to speed up development when large‑scale HPC resources are limited. Distributed computing helps, but some stages require dedicated clusters, GPUs, and expert time.
+        </p>
+        <p>
+          The romantic narrative says someone funds everything at once. Reality is more practical. A project can start small, demonstrate value, build an open platform, and gradually attract more resources. Less dramatic, far more sustainable.
+        </p>
+        <p>
+          Acceleration means informing people and institutions who can help with compute, infrastructure, funding, or connections. Visibility does not guarantee success, but invisibility guarantees stagnation.
+        </p>
+        <div class="quote">
+          This is not “send money for immortality.” It is about building an open computing and knowledge platform that accumulates results, negative findings, and directions for further research.
+        </div>
+        <p>
+          Initial outreach can target individuals known for supporting science and technology initiatives.
+        </p>
+        <ul class="clean">
+          <li>Warren Buffett</li>
+          <li>Bill Gates</li>
+          <li>Elon Musk</li>
+          <li>Jeff Bezos</li>
+          <li>Mark Zuckerberg</li>
+          <li>Larry Page</li>
+          <li>Sergey Brin</li>
+          <li>Peter Thiel</li>
+          <li>Sam Altman</li>
+          <li>Demis Hassabis</li>
+        </ul>
+        <p class="small">
+          The goal is not immediate reaction. The goal is to ensure the project exists in the information space of people who may later decide about infrastructure, grants, or partnerships.
+        </p>
+      </article>
+
+      <article class="card full">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name / Organization</th>
+                <th>Date</th>
+                <th>Channel</th>
+                <th>Message summary</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Initial outreach wave</td>
+                <td>Planned</td>
+                <td>Public / Direct</td>
+                <td>Informing selected individuals about the open rejuvenation computing platform.</td>
+                <td><span class="status">Planned</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="vision" class="section-grid">
+      <article class="card full">
+        <h2>Long‑term vision</h2>
+        <p>
+          The long‑term objective is not a single breakthrough but a persistent research infrastructure focused on rejuvenation and restoration of biological function.
+        </p>
+        <p>
+          Shared datasets, validated models, reusable pipelines, and a continuously updated map of progress. Less mythology, more accumulated knowledge.
+        </p>
+        <div class="quote">
+          Easy to start. Scalable in practice. Useful even before the final breakthrough.
+        </div>
+      </article>
+    </section>
+
+    <section id="contact" class="section-grid">
+      <article class="card">
+        <h2>Contact</h2>
+        <p>
+          The project should be easy to reach, easy to understand, and easy to verify. No maze of forms. No theatrical gatekeeping.
+        </p>
+        <ul class="clean">
+          <li><strong>Email:</strong> contact@foreveryoungathome.org</li>
+          <li><strong>Project:</strong> ForeverYoung@Home</li>
+          <li><strong>Purpose:</strong> open computing for rejuvenation science</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Public-facing summary</h2>
+        <p>
+          ForeverYoung@Home is a platform for people who believe that better computation can help unlock better biology.
+          It starts with exact work, grows by shared results, and stays honest about what is known, what is not, and what still needs to be computed.
+        </p>
+        <p>
+          The dream is ambitious. The workflow is not. That is the point.
+        </p>
+      </article>
+    </section>
+
+    <div class="footer">
+      <div><strong>ForeverYoung@Home</strong> · Open platform for rejuvenation research and distributed computation.</div>
+      <div>Built to be simple at the start, useful at scale, and transparent in between.</div>
+    </div>
+  </main>
+</body>
+</html>
